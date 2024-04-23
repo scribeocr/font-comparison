@@ -42,7 +42,7 @@ const fontCompAll = {
   },
   Garamond: {
     normal: {
-      comp2: ['/fonts/Garamond-Antiqua.ttf', '/fonts/EBGaramond-Regular.ttf', '/fonts/QTGaromand.otf'],
+      comp2: ['/fonts/Garamond-Antiqua.ttf', '/fonts/EBGaramond-Regular.ttf', '/fonts/QTGaromand.otf', '/fonts/CrimsonText-Regular.ttf', '/fonts/CrimsonPro-Regular.ttf'],
     },
     type: 'serif',
   },
@@ -51,6 +51,12 @@ const fontCompAll = {
       comp2: ['/fonts/NimbusSans-Regular.ttf'],
     },
     type: 'sans',
+  },
+  Minion: {
+    normal: {
+      comp2: ['/fonts/CrimsonText-Regular.ttf'],
+    },
+    type: 'serif',
   },
   Palatino: {
     normal: {
@@ -149,14 +155,10 @@ const metricsFromCharImg = (fontFaceName) => {
   for (let i = 0; i < inputArrFlat.length; i++) {
     const char = inputArrFlat[i];
     const charUnicode = String(char.charCodeAt(0));
-    // const glyph = fontObj1.charToGlyph(char).getMetrics();
 
     fontMetrics1.width[charUnicode] = charImgObj[fontFaceName][char].width / xHeight1;
     fontMetrics1.height[charUnicode] = charImgObj[fontFaceName][char].height / xHeight1;
 
-    // fontMetrics1.width[charUnicode] = (glyph.xMax - glyph.xMin) / xHeight1;
-    // fontMetrics1.height[charUnicode] = (glyph.yMax - glyph.yMin) / xHeight1;
-    // fontMetrics1.advance[charUnicode] = glyph.xMin / xHeight1;
     fontMetrics1.heightCaps = AHeight1 / xHeight1;
   }
 
@@ -200,33 +202,10 @@ async function loadOptimizeFonts(fontFaceName1, fontStyle2, src2) {
   });
 
 
-  //   fontData: src2,
-  //   fontMetricsObj: fontMetrics1,
-  //   style: fontStyle2,
-  //   adjustAllLeftBearings: true,
-  //   standardizeSize: true,
-  //   // targetEmSize,
-  //   transGlyphs: optimizeCheckElem.checked,
-  // });
-
-  // await schedulerReady;
-  // const fontOptObj2 = await globalThis.generalScheduler.addJob('optimizeFont', {
-  //   fontData: src2,
-  //   fontMetricsObj: fontMetrics1,
-  //   style: fontStyle2,
-  //   adjustAllLeftBearings: true,
-  //   standardizeSize: true,
-  //   // targetEmSize,
-  //   transGlyphs: optimizeCheckElem.checked,
-  // });
-
-  //   const fontDataOpt1 = fontOptObj1.fontData;
   const fontDataOpt2 = fontOptObj2.fontData;
 
-  //   const fontObj1a = await opentype.parse(fontDataOpt1);
   const fontObj2a = await opentype.parse(fontDataOpt2);
 
-  //   const fontFamily1 = fontObj1a.names.fontFamily.en;
   const fontFamily2 = fontObj2a.names.fontFamily.en;
 
   const newFont2 = new FontFace(fontFamily2, fontDataOpt2, { style: fontStyle2 });
