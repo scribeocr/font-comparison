@@ -1,0 +1,3 @@
+[submodule "scribeocr"]
+	path = scribeocr
+	url = git@github.com:scribeocr/scribeocr.git

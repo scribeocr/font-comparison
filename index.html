@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+        canvas {
+            border: 1px solid red;
+            margin: 20px;
+        }
+    </style>
+
+    <script src="./scribeocr/lib/fabric.js"></script>
+
+    <!-- Contains modified version of opentype.  Do not update without porting over changes. -->
+    <script src="./scribeocr/lib/opentype.js" async></script>
+
+    <script type="module" src="overlap_test.js"></script>
+
+</head>
+
+<body>
+    <label for="compFont">Comparison Font</label>
+    <select id="compFont" class="form-control btn-sm" size="1">
+    </select>
+    <label for="compStyle">Style</label>
+    <select id="compStyle" class="form-control btn-sm" size="1">
+        <option id="optionNormal" value="normal">Normal</option>
+        <option id="optionItalic" value="italic">Italic</option>
+    </select>
+    <button id="compFontBtn">Compare Fonts</button>
+
+
+    <label for="compAll">Optimize</label>
+    <input type="checkbox" id="optimizeCheck" name="Optimize"/>
+
+
+    <label for="compAll">Compare All</label>
+    <input type="checkbox" id="compAll" name="Compare All"/>
+
+    <label for="downloadFont">Download Font</label>
+    <select id="downloadFont" class="form-control btn-sm" size="1">
+    </select>
+    <button id="downloadFontBtn">Download Font</button>
+
+
+    <canvas id="e" width="100" height="100" style="display:none"></canvas>
+
+</body>
+
+</html>
