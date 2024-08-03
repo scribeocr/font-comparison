@@ -16,6 +16,12 @@ const fontCompAll = {
     },
     type: 'sans',
   },
+  Baskerville: {
+    normal: {
+      comp2: ['/fonts/LibreBaskerville-Regular.ttf', '/fonts/QTBasker.otf'],
+    },
+    type: 'serif',
+  },
   Bookman: {
     normal: {
       comp2: ['/fonts/URWBookman-Light.ttf'],
