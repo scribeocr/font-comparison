@@ -66,7 +66,7 @@ const fontCompAll = {
   },
   'Old English': {
     normal: {
-      comp2: ['/fonts/Canterbury.ttf'],
+      comp2: ['/fonts/Canterbury.ttf', '/fonts/OldeEnglish.ttf', '/fonts/OldEnglishFive.ttf',  '/fonts/Iglesia Light.ttf'],
     },
     type: 'serif',
   },
