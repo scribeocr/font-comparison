@@ -1,9 +1,11 @@
 import fs from 'fs';
-import { createCanvas, registerFont } from 'canvas';
 import { createRequire } from 'module';
 import opentype from '../scribeocr/lib/opentype.module.js';
+import canvasKitInit from 'canvaskit-wasm';
 
 import { fontPaths } from './localPaths.js';
+
+const canvasKit = await canvasKitInit();
 
 globalThis.self = globalThis;
 globalThis.require = createRequire(import.meta.url);
@@ -63,9 +65,15 @@ const fontCompAll = {
   },
   Minion: {
     normal: {
-      comp1: [fontPaths.Minion],
+      comp1: [fontPaths["Old English"]],
     },
     type: 'sans',
+  },
+  'Old English': {
+    normal: {
+      comp1: [fontPaths["Old English"]],
+    },
+    type: 'serif',
   },
   Palatino: {
     normal: {
@@ -96,13 +104,16 @@ const inputArrFlat = [...inputArr1, ...inputArr2, ...inputArr3];
 // All fonts must be registered before the canvas is created, so all raw and optimized fonts are loaded.
 // Even when using optimized fonts, at least one raw font is needed to compare against optimized version.
 
+const dummyCanvas = await canvasKit.MakeCanvas(1, 1);
+
 const fontFaceNameArr = [];
 const fontOpentypeArr = [];
 for (const [key1, value1] of Object.entries(fontCompAll)) {
   const fontPath = `${__dirname}/${value1.normal.comp1[0]}`;
   const fontObj1a = await opentype.load(fontPath);
   fontOpentypeArr.push(fontObj1a);
-  await registerFont(fontPath, { family: key1, style: 'normal' });
+  const fontData = fs.readFileSync(fontPath);
+  await dummyCanvas.loadFont(fontData, { family: key1, style: 'normal' });
   fontFaceNameArr.push(key1);
 }
 
@@ -112,7 +123,7 @@ for (let i = 0; i < fontFaceNameArr.length; i++) {
   const fontObj = fontOpentypeArr[i];
   const fontFaceName = fontFaceNameArr[i];
 
-  inputArrFlat.forEach((char) => {
+  for (const char of inputArrFlat) {
     const metrics = fontObj.charToGlyph(char).getMetrics();
 
     const widthPx = (metrics.xMax - metrics.xMin) * (fontSize / fontObj.unitsPerEm);
@@ -122,13 +133,23 @@ for (let i = 0; i < fontFaceNameArr.length; i++) {
 
     const leftSideBearingPx = metrics.xMin * (fontSize / fontObj.unitsPerEm);
 
-    const canvas = createCanvas(widthPx, heightPx);
+    const canvas = await canvasKit.MakeCanvas(Math.round(widthPx), Math.round(heightPx));
+
     const ctx = /** @type {OffscreenCanvasRenderingContext2D} */ (/** @type {unknown} */ (canvas.getContext('2d')));
 
     ctx.fillStyle = 'black';
     ctx.font = `${String(fontSize)}px ${fontFaceName}`;
 
     ctx.fillText(char, -leftSideBearingPx, topPx);
-    fs.writeFileSync(`${__dirname}/../char_img/${fontFaceName}_${char}.png`, canvas.toBuffer('image/png'));
-  });
+
+    const canvasDataURL = canvas.toDataURL('image/png');
+    const imgData = new Uint8Array(atob(canvasDataURL.split(',')[1])
+        .split('')
+        .map((c) => c.charCodeAt(0)));
+
+
+    fs.writeFileSync(`${__dirname}/../char_img/${fontFaceName}_${char}.png`, imgData);
+
+  }
+
 }

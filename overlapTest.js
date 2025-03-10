@@ -64,6 +64,12 @@ const fontCompAll = {
     },
     type: 'serif',
   },
+  'Old English': {
+    normal: {
+      comp2: ['/fonts/Canterbury.ttf'],
+    },
+    type: 'serif',
+  },
   Palatino: {
     normal: {
       comp2: ['/fonts/P052-Roman.ttf'],
