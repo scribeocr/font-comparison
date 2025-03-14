@@ -18,7 +18,7 @@ const fontCompAll = {
   },
   Baskerville: {
     normal: {
-      comp2: ['/fonts/LibreBaskerville-Regular.ttf', '/fonts/QTBasker.otf'],
+      comp2: ['/fonts/LibreBaskerville-Regular.ttf', '/fonts/QTBasker.otf', '/fonts/Baskervville-Regular.otf', '/fonts/BaskervaldADFStd.otf'],
     },
     type: 'serif',
   },
@@ -52,6 +52,12 @@ const fontCompAll = {
     },
     type: 'serif',
   },
+  Georgia: {
+    normal: {
+      comp2: ['/fonts/NimbusRoman-Regular.ttf', '/fonts/Gelasio-Regular.ttf'],
+    },
+    type: 'serif',
+  },
   Helvetica: {
     normal: {
       comp2: ['/fonts/NimbusSans-Regular.ttf'],
@@ -78,7 +84,7 @@ const fontCompAll = {
   },
   'Times New Roman': {
     normal: {
-      comp2: ['/fonts/NimbusRoman-Regular.ttf'],
+      comp2: ['/fonts/NimbusRoman-Regular.ttf', '/fonts/TribunADFStd-Regular.otf'],
     },
     type: 'serif',
   },

@@ -57,6 +57,12 @@ const fontCompAll = {
     },
     type: 'serif',
   },
+  Georgia: {
+    normal: {
+      comp1: [fontPaths.Georgia],
+    },
+    type: 'serif',
+  },
   Helvetica: {
     normal: {
       comp1: [fontPaths.Helvetica],
